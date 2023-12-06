@@ -77,5 +77,5 @@ for s in q.all():
 #     for hw in s.stocks1:
 #         print("\t", hw.id_shop)
 
-# if __name__ == "__main__":
-    # print(f'{publisher1}\n, {title1}\n, {title2}\n, {title3}\n, {sale1},\n {sale2},\n {sale3},\n {sale4},\n {sale5},\n {name1},\n {name3},\n {name2},\n {stock1},\n {stock2},\n {stock3},\n {stock4}')
+if __name__ == "__main__":
+    print(f'{publisher1}\n, {title1}\n, {title2}\n, {title3}\n, {sale1},\n {sale2},\n {sale3},\n {sale4},\n {sale5},\n {name1},\n {name3},\n {name2},\n {stock1},\n {stock2},\n {stock3},\n {stock4}')
