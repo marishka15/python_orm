@@ -3,7 +3,6 @@ from sqlalchemy.orm import sessionmaker
 
 from models import create_tables, Publisher, Book, Stock, Sale, Shop
 
-
 DSN = 'postgresql://postgres:DilanOBrayen69@localhost:5432/netology_db'
 engine = sqlalchemy.create_engine(DSN)
 
@@ -39,35 +38,22 @@ sale6 = Sale(data_sale='15-11-2022', price='650', stock=stock5)
 sale7 = Sale(data_sale='25-10-2022', price='480', stock=stock6)
 sale8 = Sale(data_sale='20-11-2022', price='510', stock=stock7)
 
-title = (title1, title2, title3)
-name = (name1, name2, name3)
-price = (sale1, sale2, sale3, sale4, sale5)
-data_sale = (sale1, sale2, sale3, sale4, sale5)
-
-
 
 session.add_all([publisher1, publisher2, title1, title2, title3, title4, title5, title6, sale1, sale2, sale3, sale4, sale5, sale6, sale7, sale8, name1, name2, name3, stock1, stock2, stock3, stock4, stock5, stock6, stock7])
 session.commit()
 
 def getshops(data):
-    subq = session.query(title, name, price, data_sale).select_from(Shop).join(Stock).join(Book).join(Publisher).join(Sale)
-    if getshops(data) == int:
-        q = subq.filter(Publisher.id == data)
-        # result = getshops(q)
+    subq = session.query(Book.title, Shop.name, Sale.price, Sale.data_sale).select_from(Shop).join(Stock).join(Book).join(Publisher).join(Sale)
+    if data.isdigit():
+        q = subq.filter(Publisher.id == data).all()
     else:
-        q1 = subq.filter(Publisher.name == data)
-        # result1 = getshops(q1)
+        q = subq.filter(Publisher.name == data).all()
 
-    for el1, el2, el3, el4 in q:
-            print(f"{el1: <40} | {el2: <10} | {el3: <8} | {el4: strftime('%d-%m-%Y')}")
-
-    for el1, el2,el3,el4 in q1:
-            print(f"{el1: <40} | {el2: <10} | {el3: <8} | {el4: strftime('%d-%m-%Y')}")
-
+    for title, name, sale, data_sale in q:
+            print(f"{title:<30} | {name:<12} | {sale:<8} | {data_sale:'%d-%m-%Y'}")
 
 
 if __name__ == "__main__":
-    # print(f'{publisher1}\n, {publisher2}\n, {title1}\n, {title2}\n, {title3}\n, {title4}\n, {title5}\n, {title6}\n {sale1},\n {sale2},\n {sale3},\n {sale4},\n {sale5},\n {name1},\n {name3},\n {name2},\n {stock1},\n {stock2},\n {stock3},\n {stock4}')
     data = input('Введите имя или id издателя: ')
     getshops(data)
     session.close()
